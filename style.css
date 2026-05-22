@@ -49,8 +49,15 @@ h1 {
 
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: var(--space-md);
+}
+
+/* od 48rem robi 2 kolumny */
+@media (min-width: 48rem) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
 
 .field {
@@ -118,7 +125,7 @@ button:focus-visible {
   background: var(--primary-hover);
 }
 
-/* Toast (bez fixed + bez !important) */
+/* Toast (bez fixed — accessibility safe) */
 .toast {
   position: absolute;
   inset-inline-end: var(--space-md);
@@ -143,24 +150,11 @@ button:focus-visible {
   transform: translateY(0);
 }
 
-/* Reduced motion (bez !important) */
+/* Reduced motion – BEZ !important */
 @media (prefers-reduced-motion: reduce) {
   * {
     transition-duration: 0.01ms;
     animation-duration: 0.01ms;
-    animation-iteration-count: 1;
-  }
-}
-
-/* Mobile-first (bez max-width) */
-@media (min-width: 48rem) {
-  .grid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-@media (max-width: 47.99rem) {
-  .grid {
-    grid-template-columns: 1fr;
+    scroll-behavior: auto;
   }
 }
