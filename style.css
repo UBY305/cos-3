@@ -1,13 +1,20 @@
 :root {
   --bg: #f4f6f8;
   --text: #1a1a1a;
+
   --primary: #4a90e2;
   --primary-hover: #3a7bc8;
+
   --error: #d93025;
 
+  --border: #c7c7c7;
+
   --radius: 0.75rem;
-  --space: 1rem;
-  --space-lg: 2.5rem;
+
+  --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 1vw, 0.75rem);
+  --space-md: clamp(1rem, 2vw, 1.25rem);
+  --space-lg: clamp(1.5rem, 4vw, 2.5rem);
 
   --transition: 200ms ease;
 }
@@ -29,21 +36,21 @@ body {
 }
 
 .container {
-  width: 100%;
-  max-width: 40rem;
+  width: min(100% - 2rem, 40rem);
   background: white;
-  padding: var(--space);
+
+  padding: var(--space-md);
   border-radius: var(--radius);
 }
 
 h1 {
-  margin-block-end: 1.25rem;
+  margin-block-end: var(--space-md);
 }
 
 .grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--space);
+  gap: var(--space-md);
 }
 
 .field {
@@ -56,38 +63,47 @@ h1 {
 }
 
 label {
-  margin-block-end: 0.375rem;
+  margin-block-end: var(--space-xs);
   font-size: 0.875rem;
 }
 
 input,
 textarea {
-  padding: 0.625rem;
-  border: 1px solid #ccc;
+  padding: var(--space-sm);
+
+  border: 1px solid var(--border);
   border-radius: 0.5rem;
+
   outline: none;
-  transition: border-color var(--transition), box-shadow var(--transition);
+
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
 }
 
 input:focus,
 textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 0.125rem rgba(74, 144, 226, 0.2);
+  box-shadow: 0 0 0 0.125rem rgba(74, 144, 226, 0.25);
 }
 
 .error {
   font-size: 0.75rem;
   color: var(--error);
+
   min-block-size: 1rem;
-  margin-block-start: 0.25rem;
+  margin-block-start: var(--space-xs);
 }
 
 button {
-  margin-block-start: 1.25rem;
+  margin-block-start: var(--space-md);
+
   inline-size: 100%;
-  padding: 0.75rem;
+  padding: var(--space-sm);
+
   background: var(--primary);
   color: white;
+
   border: none;
   border-radius: 0.5rem;
 
@@ -102,21 +118,24 @@ button:focus-visible {
   background: var(--primary-hover);
 }
 
-/* Toast (bez position: fixed problem — fallback safe area) */
+/* Toast (bez fixed + bez !important) */
 .toast {
   position: absolute;
-  inset-inline-end: 1rem;
-  inset-block-end: 1rem;
+  inset-inline-end: var(--space-md);
+  inset-block-end: var(--space-md);
 
   background: #2e7d32;
   color: white;
 
-  padding: 0.75rem 1rem;
+  padding: var(--space-sm) var(--space-md);
   border-radius: 0.5rem;
 
   opacity: 0;
   transform: translateY(1rem);
-  transition: opacity var(--transition), transform var(--transition);
+
+  transition:
+    opacity var(--transition),
+    transform var(--transition);
 }
 
 .toast.show {
@@ -124,22 +143,23 @@ button:focus-visible {
   transform: translateY(0);
 }
 
-/* Reduced motion support */
+/* Reduced motion (bez !important) */
 @media (prefers-reduced-motion: reduce) {
   * {
-    transition: none !important;
-    scroll-behavior: auto !important;
+    transition-duration: 0.01ms;
+    animation-duration: 0.01ms;
+    animation-iteration-count: 1;
   }
 }
 
-/* Mobile-first (zamiast max-width) */
-@media (min-width: 37.5rem) {
+/* Mobile-first (bez max-width) */
+@media (min-width: 48rem) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 37.5rem) {
+@media (max-width: 47.99rem) {
   .grid {
     grid-template-columns: 1fr;
   }
