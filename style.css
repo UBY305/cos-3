@@ -6,7 +6,6 @@
   --primary-hover: #3a7bc8;
 
   --error: #d93025;
-
   --border: #c7c7c7;
 
   --radius: 0.75rem;
@@ -16,7 +15,11 @@
   --space-md: clamp(1rem, 2vw, 1.25rem);
   --space-lg: clamp(1.5rem, 4vw, 2.5rem);
 
+  --text-sm: clamp(0.8125rem, 0.8vw + 0.6rem, 0.9375rem);
+
   --transition: 200ms ease;
+
+  --primary-shadow: 0 0 0 0.125rem rgba(74, 144, 226, 0.25);
 }
 
 * {
@@ -53,7 +56,6 @@ h1 {
   gap: var(--space-md);
 }
 
-/* od 48rem robi 2 kolumny */
 @media (min-width: 48rem) {
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -71,7 +73,7 @@ h1 {
 
 label {
   margin-block-end: var(--space-xs);
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
 }
 
 input,
@@ -91,11 +93,11 @@ textarea {
 input:focus,
 textarea:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 0.125rem rgba(74, 144, 226, 0.25);
+  box-shadow: var(--primary-shadow);
 }
 
 .error {
-  font-size: 0.75rem;
+  font-size: var(--text-sm);
   color: var(--error);
 
   min-block-size: 1rem;
@@ -125,7 +127,6 @@ button:focus-visible {
   background: var(--primary-hover);
 }
 
-/* Toast (bez fixed — accessibility safe) */
 .toast {
   position: absolute;
   inset-inline-end: var(--space-md);
@@ -150,7 +151,7 @@ button:focus-visible {
   transform: translateY(0);
 }
 
-/* Reduced motion – BEZ !important */
+/* Reduced motion (bez !important) */
 @media (prefers-reduced-motion: reduce) {
   * {
     transition-duration: 0.01ms;
